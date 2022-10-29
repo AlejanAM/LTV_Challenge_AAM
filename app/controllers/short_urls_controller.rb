@@ -7,6 +7,12 @@ class ShortUrlsController < ApplicationController
   end
 
   def create
+    crURL = ShortUrl.new(full_url:params[:full_url])
+    if crURL.save
+      render json: crURL, status: 200
+    else
+      render json: {error:"errors/404"}
+    end
   end
 
   def show
