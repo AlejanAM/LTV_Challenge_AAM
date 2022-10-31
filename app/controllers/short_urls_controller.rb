@@ -6,12 +6,15 @@ class ShortUrlsController < ApplicationController
   def index
   end
 
+  #Takes the URLS in string format, checks
+  #if there are any errors and executes the
+  #post on the database
   def create
     crURL = ShortUrl.new(full_url:params[:full_url])
     if crURL.save
       render json: crURL, status: 200
     else
-      render json: {error:"errors/404"}
+      render json: {error:crURL.errors}
     end
   end
 
