@@ -44,7 +44,20 @@ class ShortUrl < ApplicationRecord
     self.short_code
   end
 
-  def update_title!  
+  #Method executed by the job, getting
+  #the html of the given url and changing
+  #the title updating its column
+  def update_title!
+    uri = URI.parse(full_url)
+    html = Net::HTTP.get_response(uri)
+    regex = /<title>([^<]*)<\/title>/
+    
+    if html.is_a?(Net::HTTPSuccess)
+      title = html.body.match(regex)[1]
+      self.update_columns(title:title)
+    else
+      errors.add(:errors,"Error loading html")
+    end
   end
 
   private
