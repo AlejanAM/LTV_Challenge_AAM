@@ -13,7 +13,7 @@ the purpose of being the shortcode, converting the id (Base 10) to the short cod
 
 The shortcode will redirect to the full URL from short code (Base 62) to id (Base 10) when
 entering the short URL. By doing that it will access to MariaDB and search the full URL by
-the recent conversionof the short code to id.
+the recent conversion of the short code to id.
 
 # Intial Setup
 
