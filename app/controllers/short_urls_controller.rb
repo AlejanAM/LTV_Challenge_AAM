@@ -22,15 +22,23 @@ class ShortUrlsController < ApplicationController
   #post on the database
   def create
     @crURL = ShortUrl.new(full_url:params[:full_url])
-    if crURL.save
+    if @crURL.save
       render json: {short_code: @crURL.short_code}, status: 200
     else
-      render json: @crURL.errors
+      render json: @crURL.errors, status: 404
     end
   end
 
+  #Redirects the url using the short code conversion
+  #to id and updates the amount of clicks by one
   def show
-
+    @shURL = ShortUrl.short_code_to_id(params[:id])
+    if @shURL
+      @shURL.update_attribute(:click_count, @shURL.click_count + 1)
+      redirect_to @shURL.full_url
+    else
+      render json: {errors: "Error doing redirection"}, status: 404
+    end
   end
 
 end
