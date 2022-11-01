@@ -32,10 +32,11 @@ class ShortUrlsController < ApplicationController
   #Redirects the url using the short code conversion
   #to id and updates the amount of clicks by one
   def show
-    @shURL = ShortUrl.short_code_to_id(params[:id])
+    @shURL = ShortUrl.find_by_short_code(params[:id])
     if @shURL
       @shURL.update_attribute(:click_count, @shURL.click_count + 1)
-      redirect_to @shURL.full_url
+
+      redirect_to @shURL[:full_url]
     else
       render json: {errors: "Error doing redirection"}, status: 404
     end
