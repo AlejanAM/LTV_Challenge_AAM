@@ -1,3 +1,20 @@
+# About this project
+
+This project consists in a challenge for LTV FullStack Ruby Engineer.
+To complete this project I had to use Ruby v2.6.6, MariaDB/MySQL as
+database and Redis in memory database for background jobs.
+
+# URL shortener
+
+The logic used to solve the problem was entering a URL and the output is a short URL.
+Based on the given  list ( [*'0'..'9', *'a'..'z', *'A'..'Z'] ) to generate a short
+URL. When stonring the URL in MariaDB it generates an unique id, this id will serve
+the purpose of being the shortcode, converting the id (Base 10) to the short code(Base 62).
+
+The shortcode will redirect to the full URL from short code (Base 62) to id (Base 10) when
+entering the short URL. By doing that it will access to MariaDB and search the full URL by
+the recent conversionof the short code to id.
+
 # Intial Setup
 
     docker-compose build
